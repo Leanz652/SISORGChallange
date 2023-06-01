@@ -13,26 +13,29 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Task, Status } from 'src/app/models/model';
 import { TaskService } from 'src/app/service/task.service';
 import { compare } from 'src/app/utils/utils';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { DialogTaskComponent } from '../dialog-task/dialog-task.component';
 
 @Component({
   selector: 'app-task-table',
   templateUrl: './task-table.component.html',
   styleUrls: ['./task-table.component.css'],
   standalone: true,
-  imports: [MatTableModule, CommonModule, DatePipe, MatInputModule, MatPaginatorModule, MatSortModule, MatProgressSpinnerModule, MatButtonModule, MatIconModule]
+  imports: [MatTableModule, CommonModule, DatePipe, MatInputModule, MatPaginatorModule, MatSortModule, MatProgressSpinnerModule, MatButtonModule, MatIconModule, MatDialogModule]
 })
 export class TaskTableComponent implements OnInit {
 
   private taskService = inject(TaskService);
+  private dialog = inject(MatDialog)
 
   displayedColumns: string[] = ['title', 'status', 'priority', 'date'];
   public dataTask: Task[] = []
   public loading = true;
 
   ngOnInit(): void {
-    this.taskService.getAllTasks().subscribe({
+    this.taskService.taskObs.subscribe({
       next: (tasks) => {
-        this.dataTask = tasks
+        this.dataTask = [...tasks]
         this.loading = false;
       },
       error: (err) => {
@@ -84,6 +87,18 @@ export class TaskTableComponent implements OnInit {
  */
   handleDeleteTasks(){
     this.dataTask = []
+  
+  
   }    
+
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogTaskComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
 }
 

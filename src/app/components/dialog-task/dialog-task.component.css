@@ -1,0 +1,7 @@
+.task-dialog {
+    display: flex;
+    flex-direction: column;
+    min-width: 400px;
+    min-height: 500px;
+    padding: 30px;
+}

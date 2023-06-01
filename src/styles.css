@@ -1,4 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { min-height: 100vh; }
-body { margin: 0; display: flex; }
+html,
+body {
+  min-height: 100vh;
+}
+body {
+  margin: 0;
+  display: flex;
+}
+
+.mat-green {
+  color: white !important;
+  background-color: forestgreen !important;
+}

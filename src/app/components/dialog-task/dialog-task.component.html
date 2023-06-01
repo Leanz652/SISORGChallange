@@ -1,0 +1,55 @@
+<div class="task-dialog">
+  <h2 mat-dialog-title>Task Management</h2>
+
+  <mat-dialog-content [formGroup]="form">
+    
+    <div class="row mt-3">
+      <div class="col-6 d-flex flex-column">
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="title" />
+        </mat-form-field>
+
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label>Date</mat-label>
+          <input matInput formControlName="date" [matDatepicker]="picker" />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label>Description</mat-label>
+          <input matInput formControlName="description" />
+        </mat-form-field>
+      </div>
+
+      <div class="col-6 d-flex flex-column">
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label>Priority</mat-label>
+          <mat-select formControlName="priority">
+            <mat-option *ngFor="let value of getPriority" [value]="value">{{
+              value
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status">
+            <mat-option *ngFor="let value of getStatus" [value]="value">{{
+              value
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-raised-button (click)="close()">Close</button>
+    <button mat-raised-button color="primary" [disabled]="this.form.invalid" (click)="save()">Save</button>
+  </mat-dialog-actions>
+</div>

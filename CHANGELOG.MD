@@ -6,3 +6,8 @@
 - View all tasks.
 - Delete all tasks.
 - Complete all tasks.
+
+## [0.2.0] - 2023-06-01
+
+### Added
+- Add tasks.

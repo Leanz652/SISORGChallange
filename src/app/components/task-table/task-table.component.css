@@ -1,0 +1,13 @@
+.spinner-container {
+    height: 360px;
+    width: 400px;
+    position: fixed;
+}
+
+.spinner-container mat-spinner {
+    margin: 130px auto 0 auto;
+}
+
+.task-table {
+    min-height: 360px;
+}

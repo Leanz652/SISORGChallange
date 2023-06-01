@@ -9,7 +9,7 @@ body {
   display: flex;
 }
 
-.mat-green {
+.mat-green:not(:disabled) {
   color: white !important;
   background-color: forestgreen !important;
 }

@@ -11,3 +11,9 @@
 
 ### Added
 - Add tasks.
+
+## [0.3.0] - 2023-06-01
+
+### Added
+- Edit task.
+- Remove task.

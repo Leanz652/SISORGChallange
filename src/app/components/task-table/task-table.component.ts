@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
-import { Task, Status } from 'src/app/models/model';
+import { Task } from 'src/app/models/model';
 import { TaskService } from 'src/app/service/task.service';
 import { compare } from 'src/app/utils/utils';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -28,7 +28,7 @@ export class TaskTableComponent implements OnInit {
   private taskService = inject(TaskService);
   private dialog = inject(MatDialog)
 
-  displayedColumns: string[] = ['title', 'status', 'priority', 'date'];
+  displayedColumns: string[] = ['title', 'status', 'priority', 'date', 'admin'];
   public dataTask: Task[] = []
   public loading = true;
 
@@ -72,32 +72,42 @@ export class TaskTableComponent implements OnInit {
     });
   }
 
-/**
- * The function sets the status of all tasks in a dataTask array to "completed".
- */
-  handleDoneTasks(){
-      this.dataTask = this.dataTask.map( task => { 
-      task.status = Status.COMPLETED 
-      return task
-    })    
-  }
 
 /**
- * The function "handleDeleteTasks" sets an empty array to the "dataTask" variable.
+ * This function calls a method in the task service to mark all tasks as complete.
+ */
+  handleDoneTasks(){
+    this.taskService.completeAllTasks();
+  }
+
+
+/**
+ * This function calls a method to delete all tasks from a task service.
  */
   handleDeleteTasks(){
-    this.dataTask = []
-  
-  
+    this.taskService.deleteAllTasks();
   }    
 
 
+/**
+ * The function opens a dialog box using the DialogTaskComponent.
+ */
   openDialog(): void {
-    const dialogRef = this.dialog.open(DialogTaskComponent);
+    this.dialog.open(DialogTaskComponent);
+  }
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+/**
+ * The function opens a dialog box to edit a task.
+ * @param {Task} task - Task is a data type or class that represents a task object. The `editTask`
+ * method takes an instance of the `Task` class as a parameter. This method opens a dialog box using
+ * the `MatDialog` service and passes the `task` object as data to the `DialogTaskComponent
+ */
+  editTask(task: Task){
+    this.dialog.open(DialogTaskComponent, {data: task});
+  }
+
+  deleteTask(task: Task){
+    this.taskService.removeTask(task)
   }
 
 }

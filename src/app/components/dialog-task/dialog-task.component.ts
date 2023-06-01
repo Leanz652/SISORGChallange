@@ -22,6 +22,7 @@ import { TaskService } from "src/app/service/task.service";
 
 
 const CREATION_SUCCESS = "Your task was added"
+const EDIT_SUCCESS = "Your task was modified"
 
 @Component({
   selector: 'app-dialog-task',
@@ -34,49 +35,60 @@ const CREATION_SUCCESS = "Your task was added"
 export class DialogTaskComponent {
   constructor(
     private dialogRef: MatDialogRef<DialogTaskComponent>,
-    @Inject(MAT_DIALOG_DATA) data: any) {
+    @Inject(MAT_DIALOG_DATA) public data: Task) {
   }
 
   private taskService = inject(TaskService)
   private snackBar = inject(MatSnackBar)
 
-  form = new FormGroup<TaskForm>({
-    date: new FormControl(null, [Validators.required]),
-    description: new FormControl('', [Validators.required]),
-    priority: new FormControl(null, [Validators.required]),
-    status: new FormControl(null, [Validators.required]),
-    title: new FormControl('', [Validators.required]),
-  })
-
-  ngOnInit() {
-  }
-
   getPriority = enumValues(Priority)
   getStatus = enumValues(Status)
 
-  save() {
+  form!: FormGroup<TaskForm>
 
-    const newTask: Task = {
+  ngOnInit() {
+    this.initForm()
+  }
+
+  addNewTask() {
+    this.taskService.addTask(this.formToTask());
+    this.openSnackBar(CREATION_SUCCESS);
+    this.dialogRef.close();
+  }
+
+  editTask() {
+    this.taskService.editTask(this.data, this.formToTask())
+    this.openSnackBar(EDIT_SUCCESS);
+    this.dialogRef.close();
+  }
+
+  close() {
+    console.log(this.form)
+    this.dialogRef.close();
+  }
+
+  openSnackBar(message: string) {
+    this.snackBar.open(message, 'CLOSE', { duration: 1500 });
+  }
+
+  initForm() {
+    this.form = new FormGroup<TaskForm>({
+      date: new FormControl(this.data ? this.data.date : null, [Validators.required]),
+      description: new FormControl(this.data ? this.data.description : null, [Validators.required]),
+      priority: new FormControl(this.data ? this.data.priority : null, [Validators.required]),
+      status: new FormControl(this.data ? this.data.status : null, [Validators.required]),
+      title: new FormControl(this.data ? this.data.title : null, [Validators.required]),
+    })
+  }
+
+  formToTask(): Task {
+    return {
       date: this.form.value.date!,
       title: this.form.value.title!,
       description: this.form.value.title!,
       priority: this.form.value.priority!,
       status: this.form.value.status!
     }
-
-    this.taskService.addTask(newTask);
-
-    this.openSnackBar(CREATION_SUCCESS, "CLOSE");
-
-    this.dialogRef.close();
-  }
-
-  close() {
-    this.dialogRef.close();
-  }
-
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, { duration: 1500 });
   }
 }
 

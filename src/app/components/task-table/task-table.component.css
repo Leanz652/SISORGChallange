@@ -9,6 +9,9 @@
 }
 
 .task-table {
-    min-height: 360px;
+    min-height: 300px;
 }
-  
+
+.mat-mdc-mini-fab.mdc-fab{
+border-radius: 0;
+}

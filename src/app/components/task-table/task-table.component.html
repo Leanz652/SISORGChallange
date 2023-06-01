@@ -34,7 +34,26 @@
         <ng-container matColumnDef="date">
           <th mat-header-cell mat-sort-header *matHeaderCellDef>Date</th>
           <td mat-cell *matCellDef="let task">
-            {{ task.date | date : "long" }}
+            {{ task.date | date : "short" }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="admin">
+          <th mat-header-cell mat-sort-header *matHeaderCellDef>Admin Panel</th>
+          <td mat-cell *matCellDef="let task">
+            
+            <div class="d-flex justify-content-between" >
+              <button mat-mini-fab color="primary" aria-label="Edit task" (click)="editTask(task)">
+                <mat-icon> edit </mat-icon>
+              </button>
+      
+              <button mat-mini-fab color="warn" aria-label="Delete task" (click)="deleteTask(task)">
+                <mat-icon> delete </mat-icon>
+              </button>
+            </div>
+
+
+
           </td>
         </ng-container>
 
@@ -58,16 +77,16 @@
 
     <div class="d-flex gap-3 mt-3 justify-content-between">
       <div class="d-flex gap-2">
-        <button mat-raised-button color="warn" (click)="handleDeleteTasks()">
+        <button mat-raised-button color="warn" [disabled]="dataTask.length == 0" (click)="handleDeleteTasks()">
           <mat-icon> delete </mat-icon> Delete all
         </button>
 
-        <button mat-raised-button color="green" (click)="handleDoneTasks()">
+        <button mat-raised-button color="green" [disabled]="dataTask.length == 0" (click)="handleDoneTasks()">
           <mat-icon> done </mat-icon> Done all
         </button>
       </div>
 
-      <button mat-raised-button color="primary" (click)="openDialog()">
+      <button mat-raised-button color="primary"  (click)="openDialog()">
         <mat-icon> add </mat-icon> Add task
       </button>
     </div>

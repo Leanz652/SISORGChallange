@@ -50,6 +50,14 @@
 
   <mat-dialog-actions>
     <button mat-raised-button (click)="close()">Close</button>
-    <button mat-raised-button color="primary" [disabled]="this.form.invalid" (click)="save()">Save</button>
+  
+    <ng-container *ngIf="!data; else edit">
+      <button  mat-raised-button color="primary" [disabled]="this.form.invalid" (click)="addNewTask()">Create</button>
+    </ng-container>
   </mat-dialog-actions>
 </div>
+
+
+<ng-template #edit>
+  <button mat-raised-button color="primary" [disabled]="this.form.pristine" (click)="editTask()">Edit</button>
+</ng-template>

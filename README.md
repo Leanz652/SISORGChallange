@@ -1,7 +1,5 @@
 # SISORGChallange
 
-A brief description of the project.
-
 ## Getting Started
 
 To get started with the project, follow these steps:

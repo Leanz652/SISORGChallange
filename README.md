@@ -7,7 +7,7 @@ To get started with the project, follow these steps:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/your-repository.git
+   git clone https://github.com/Leanz652/SISORGChallange.git
    ```
 2. Install project dependencies:
    ```bash

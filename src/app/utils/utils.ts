@@ -1,3 +1,5 @@
+import { Priority, Status } from "../models/model";
+
 /**
  * The function compares two values (numbers, strings, or dates) and returns a sorting order based on
  * whether they are ascending or descending.
@@ -26,7 +28,7 @@ export function compare(a: number | string | Date, b: number | string | Date, is
 /**
  * The function returns an array of values from an enumeration object.
  * @param {any} enumeration - The `enumeration` parameter is an object representing an enum in
- * TypeScript or a similar language. It contains key-value pairs where the keys are the names of the
+ * TypeScript. It contains key-value pairs where the keys are the names of the
  * enum values and the values are the corresponding numeric or string values assigned to those names.
  * @returns The `enumValues` function returns an array of all the values in the given enumeration
  * object. It does this by using `Object.keys` to get an array of all the keys in the object, and then
@@ -34,4 +36,22 @@ export function compare(a: number | string | Date, b: number | string | Date, is
  */
 export function enumValues(enumeration: any) {
   return Object.keys(enumeration).map(key => enumeration[key]);
+}
+
+
+/**
+ * This TypeScript function returns the values of an enum called Priority.
+ * @returns an array of all the values in the Priority enum.
+ */
+export function getPriority(){
+  return enumValues(Priority)
+}
+
+
+/**
+ * This function returns all the values of an enum called "Status".
+ * @returns an array of all the values in the `Status` enum.
+ */
+export function getStatus(){
+  return enumValues(Status)
 }

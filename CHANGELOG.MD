@@ -17,3 +17,9 @@
 ### Added
 - Edit task.
 - Remove task.
+
+## [1.0.0] - 2023-06-01
+
+### Added
+- Confirmation Dialog on delete actions.
+- Filter by Status & Priority

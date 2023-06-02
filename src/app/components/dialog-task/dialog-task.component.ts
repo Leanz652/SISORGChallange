@@ -5,7 +5,6 @@ import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatSelectModule } from '@angular/material/select';
-import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 
@@ -14,10 +13,9 @@ import { Component, Inject, inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 
-import { Status, Task, TaskForm } from "src/app/models/model";
+import { Task, TaskForm } from "src/app/models/model";
 import { MatNativeDateModule } from "@angular/material/core";
-import { Priority } from '../../models/model';
-import { enumValues } from "src/app/utils/utils";
+import { getPriority, getStatus } from "src/app/utils/utils";
 import { TaskService } from "src/app/service/task.service";
 
 
@@ -29,7 +27,7 @@ const EDIT_SUCCESS = "Your task was modified"
   templateUrl: './dialog-task.component.html',
   styleUrls: ['./dialog-task.component.css'],
   imports: [MatDialogModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, FormsModule,
-    CommonModule, MatDatepickerModule, MatSelectModule, MatNativeDateModule, MatGridListModule, MatSnackBarModule],
+    CommonModule, MatDatepickerModule, MatSelectModule, MatNativeDateModule, MatSnackBarModule],
   standalone: true
 })
 export class DialogTaskComponent {
@@ -41,8 +39,8 @@ export class DialogTaskComponent {
   private taskService = inject(TaskService)
   private snackBar = inject(MatSnackBar)
 
-  getPriority = enumValues(Priority)
-  getStatus = enumValues(Status)
+  getPriority = getPriority()
+  getStatus = getStatus()
 
   form!: FormGroup<TaskForm>
 
@@ -63,7 +61,6 @@ export class DialogTaskComponent {
   }
 
   close() {
-    console.log(this.form)
     this.dialogRef.close();
   }
 
